@@ -4,10 +4,14 @@ import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
 @InputType()
 export class CreateUserInput {
   @IsString()
-  @IsNotEmpty({ message: 'Este campo não pode estar vazio' })
+  @IsNotEmpty({ message: 'Nome é um campo obrigatório' })
   name: string
 
-  @IsEmail({}, { message: 'E-mail obrigatório' })
-  @IsNotEmpty({ message: 'Este campo não pode estar vazio' })
+  @IsEmail({}, { message: 'Email com formato incorreto' })
+  @IsNotEmpty({ message: 'Email é um campo obrigatório' })
   email: string
+
+  @IsString()
+  @IsNotEmpty({ message: 'Senha é um campo obrigatório' })
+  password: string
 }

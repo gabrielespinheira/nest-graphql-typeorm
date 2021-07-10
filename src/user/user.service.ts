@@ -32,6 +32,16 @@ export class UserService {
     return user
   }
 
+  async findUserByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { email } })
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado')
+    }
+
+    return user
+  }
+
   async createUser(data: CreateUserInput): Promise<User> {
     const user = this.userRepository.create(data)
     const userSaved = await this.userRepository.save(user)
@@ -43,14 +53,10 @@ export class UserService {
     return userSaved
   }
 
-  async updateUser(id: string, data: UpdateUserInput): Promise<User> {
-    const user = await this.findUserById(id)
+  async updateUser(data: UpdateUserInput): Promise<User> {
+    const user = await this.findUserById(data.id)
 
-    await this.userRepository.update(user, { ...data })
-
-    const userUpdated = this.userRepository.create({ ...user, ...data })
-
-    return userUpdated
+    return this.userRepository.save({ ...user, ...data })
   }
 
   async deleteUser(id: string): Promise<boolean> {
@@ -59,7 +65,7 @@ export class UserService {
     const deleted = await this.userRepository.delete(user)
 
     if (!deleted) {
-      return false
+      throw new InternalServerErrorException('Não foi possível deletar usuário')
     }
 
     return true

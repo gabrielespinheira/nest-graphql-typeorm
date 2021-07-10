@@ -1,15 +1,31 @@
 import { InputType } from '@nestjs/graphql'
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator'
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator'
 
 @InputType()
 export class UpdateUserInput {
   @IsString()
-  @IsNotEmpty({ message: 'Este campo não pode estar vazio' })
+  @IsOptional()
+  @IsUUID()
+  id?: string
+
+  @IsString()
+  @IsNotEmpty({ message: 'Nome é um campo obrigatório' })
   @IsOptional()
   name?: string
 
-  @IsEmail({}, { message: 'E-mail obrigatório' })
-  @IsNotEmpty({ message: 'Este campo não pode estar vazio' })
+  @IsEmail({}, { message: 'Email com formato incorreto' })
+  @IsNotEmpty({ message: 'Email é um campo obrigatório' })
   @IsOptional()
   email?: string
+
+  @IsString()
+  @IsNotEmpty({ message: 'Senha é um campo obrigatório' })
+  @IsOptional()
+  password?: string
 }
