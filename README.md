@@ -7,6 +7,7 @@
 - [TypeORM](https://typeorm.io/)
 - [GraphQL](https://graphql.org/)
 - [Apollo GraphQL](https://www.apollographql.com/)
+- [JWT](https://jwt.io/)
 
 ## 💻 Projeto
 
@@ -21,6 +22,9 @@ Clone o projeto e acesse a pasta do mesmo.
 ```bash
 # Instalar as dependências
 $ yarn
+
+# Subir os containers docker
+$ yarn up
 
 # Iniciar o projeto
 $ yarn start:dev
